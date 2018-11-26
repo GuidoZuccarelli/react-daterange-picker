@@ -320,3 +320,24 @@ $ns: DateRangePicker !default;
     z-index: 1;
   }
 }
+
+.fade-enter {
+  opacity: 0.01;
+  transform: translateX(100%);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 5000ms ease-in;
+  background: red;
+}
+.fade-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.fade-exit-active {
+  opacity: 0.01;
+  transform: translateX(-100%);
+  transition: all 5000ms ease-in;
+  background: blue;
+}

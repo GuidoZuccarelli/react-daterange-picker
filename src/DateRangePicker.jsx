@@ -18,6 +18,10 @@ import PaginationArrow from './PaginationArrow';
 import isMomentRange from './utils/isMomentRange';
 import hasUpdatedValue from './utils/hasUpdatedValue';
 import { getOptionalYearProps, getYearMonth, getYearMonthProps } from './utils/getYearMonth';
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group';
 
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
@@ -525,7 +529,7 @@ const DateRangePicker = createClass({
       locale: this.props.locale,
     };
 
-    return <CalendarMonth {...props} />;
+    return <CSSTransition key={key} timeout={5000} classNames="fade"><CalendarMonth {...props} /></CSSTransition>;
   },
 
   render: function() {
@@ -537,7 +541,9 @@ const DateRangePicker = createClass({
     return (
       <div className={className.trim()}>
         <PaginationArrowComponent direction="previous" onTrigger={this.moveBack} disabled={!this.canMoveBack()} />
+        <TransitionGroup className="todo-list">
         {calendars.toJS()}
+        </TransitionGroup>
         <PaginationArrowComponent direction="next" onTrigger={this.moveForward} disabled={!this.canMoveForward()} />
         {helpMessage ? <span className={this.cx({element: 'HelpMessage'})}>{helpMessage}</span> : null}
         {showLegend ? <Legend stateDefinitions={stateDefinitions} selectedLabel={selectedLabel} /> : null}
