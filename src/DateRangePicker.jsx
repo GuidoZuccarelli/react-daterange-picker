@@ -33,6 +33,7 @@ function noop() {}
 const DateRangePicker = createClass({
   mixins: [BemMixin, PureRenderMixin],
   displayName: "DateRangePicker",
+  moving: false,
 
   propTypes: {
     bemBlock: PropTypes.string,
@@ -397,7 +398,7 @@ const DateRangePicker = createClass({
   },
 
   canMoveBack() {
-    if (this.getMonthDate().subtract(1, 'days').isBefore(this.state.enabledRange.start)) {
+    if (this.getMonthDate().subtract(1, 'days').isBefore(this.state.enabledRange.start) || this.moving) {
       return false;
     }
     return true;
@@ -410,11 +411,12 @@ const DateRangePicker = createClass({
       monthDate = this.getMonthDate();
       monthDate.subtract(1, 'months');
       this.setState(Object.assign(getYearMonth(monthDate), { move: 'move-prev' }));
+      this.moving = true;
     }
   },
 
   canMoveForward() {
-    if (this.getMonthDate().add(this.props.numberOfCalendars, 'months').isAfter(this.state.enabledRange.end)) {
+    if (this.getMonthDate().add(this.props.numberOfCalendars, 'months').isAfter(this.state.enabledRange.end) || this.moving) {
       return false;
     }
     return true;
@@ -427,6 +429,7 @@ const DateRangePicker = createClass({
       monthDate = this.getMonthDate();
       monthDate.add(1, 'months');
       this.setState(Object.assign(getYearMonth(monthDate), { move: 'move-next' }));
+      this.moving = true;
     }
   },
 
@@ -530,7 +533,7 @@ const DateRangePicker = createClass({
       locale: this.props.locale,
     };
 
-    return <CSSTransition key={key} timeout={{enter: 300, exit: 500}} classNames="fade"><CalendarMonth {...props} /></CSSTransition>;
+    return <CSSTransition key={key} timeout={{enter: 300, exit: 500}} onExited={() => { this.moving = false; }} classNames="fade"><CalendarMonth {...props} /></CSSTransition>;
   },
 
   render: function() {
