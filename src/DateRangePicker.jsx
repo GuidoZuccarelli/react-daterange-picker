@@ -530,7 +530,7 @@ const DateRangePicker = createClass({
       locale: this.props.locale,
     };
 
-    return <CSSTransition key={key} timeout={5000} classNames="fade"><CalendarMonth {...props} /></CSSTransition>;
+    return <CSSTransition key={key} timeout={300} classNames="fade"><CalendarMonth {...props} /></CSSTransition>;
   },
 
   render: function() {
@@ -542,7 +542,7 @@ const DateRangePicker = createClass({
     return (
       <div className={className.trim()}>
         <PaginationArrowComponent direction="previous" onTrigger={this.moveBack} disabled={!this.canMoveBack()} />
-        <TransitionGroup component={null} enter={false}>
+        <TransitionGroup component={null}>
         {calendars.toJS()}
         </TransitionGroup>
         <PaginationArrowComponent direction="next" onTrigger={this.moveForward} disabled={!this.canMoveForward()} />
