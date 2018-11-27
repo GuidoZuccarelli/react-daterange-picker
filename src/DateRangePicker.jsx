@@ -398,7 +398,7 @@ const DateRangePicker = createClass({
   },
 
   canMoveBack() {
-    if (this.getMonthDate().subtract(1, 'days').isBefore(this.state.enabledRange.start) || this.moving) {
+    if (this.getMonthDate().subtract(1, 'days').isBefore(this.state.enabledRange.start)) {
       return false;
     }
     return true;
@@ -407,7 +407,7 @@ const DateRangePicker = createClass({
   moveBack() {
     let monthDate;
 
-    if (this.canMoveBack()) {
+    if (this.canMoveBack() && !this.moving) {
       monthDate = this.getMonthDate();
       monthDate.subtract(1, 'months');
       this.setState(Object.assign(getYearMonth(monthDate), { move: 'move-prev' }));
@@ -416,7 +416,7 @@ const DateRangePicker = createClass({
   },
 
   canMoveForward() {
-    if (this.getMonthDate().add(this.props.numberOfCalendars, 'months').isAfter(this.state.enabledRange.end) || this.moving) {
+    if (this.getMonthDate().add(this.props.numberOfCalendars, 'months').isAfter(this.state.enabledRange.end)) {
       return false;
     }
     return true;
@@ -425,7 +425,7 @@ const DateRangePicker = createClass({
   moveForward() {
     let monthDate;
 
-    if (this.canMoveForward()) {
+    if (this.canMoveForward() && !this.moving) {
       monthDate = this.getMonthDate();
       monthDate.add(1, 'months');
       this.setState(Object.assign(getYearMonth(monthDate), { move: 'move-next' }));
