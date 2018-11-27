@@ -530,7 +530,7 @@ const DateRangePicker = createClass({
       locale: this.props.locale,
     };
 
-    return <CSSTransition key={key} timeout={300} classNames="fade"><CalendarMonth {...props} /></CSSTransition>;
+    return <CSSTransition key={key} timeout={{enter: 300, exit: 500}} classNames="fade"><CalendarMonth {...props} /></CSSTransition>;
   },
 
   render: function() {
