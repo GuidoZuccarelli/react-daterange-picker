@@ -409,8 +409,7 @@ const DateRangePicker = createClass({
     if (this.canMoveBack()) {
       monthDate = this.getMonthDate();
       monthDate.subtract(1, 'months');
-      this.setState({ move: 'move-prev' });
-      window.setTimeout(() => this.setState(Object.assign(getYearMonth(monthDate), { move: '' })), 500);
+      this.setState(Object.assign(getYearMonth(monthDate), { move: 'move-prev' }));
     }
   },
 
@@ -427,8 +426,7 @@ const DateRangePicker = createClass({
     if (this.canMoveForward()) {
       monthDate = this.getMonthDate();
       monthDate.add(1, 'months');
-      this.setState({ move: 'move-next' });
-      window.setTimeout(() => this.setState(Object.assign(getYearMonth(monthDate), { move: '' })), 500);
+      this.setState(Object.assign(getYearMonth(monthDate), { move: 'move-next' }));
     }
   },
 
@@ -544,7 +542,7 @@ const DateRangePicker = createClass({
     return (
       <div className={className.trim()}>
         <PaginationArrowComponent direction="previous" onTrigger={this.moveBack} disabled={!this.canMoveBack()} />
-        <TransitionGroup className="todo-list">
+        <TransitionGroup className="todo-list" enter={false}>
         {calendars.toJS()}
         </TransitionGroup>
         <PaginationArrowComponent direction="next" onTrigger={this.moveForward} disabled={!this.canMoveForward()} />

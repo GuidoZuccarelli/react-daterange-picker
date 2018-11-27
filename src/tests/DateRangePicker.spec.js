@@ -120,6 +120,17 @@ describe('The DateRangePicker component', function () {
       expect(this.renderedComponent.props.children[0].props.disabled).toBe(false);
     });
 
+    it('the left one when clicked moves the calendar one month in the past', function () {
+      this.useDocumentRenderer({
+        initialYear: 2000,
+        initialMonth: 6,
+      });
+      var leftArrow = ReactTestUtils.scryRenderedDOMComponentsWithClass(this.renderedComponent, 'DateRangePicker__PaginationArrowIcon')[0];
+      ReactTestUtils.Simulate.click(leftArrow);
+
+      expect(this.renderedComponent.state.month).toBe(5);
+    });
+
     it('the right one gets disabled when we are at the end of the permitted period', function () {
       this.useShallowRenderer({
         maximumDate: new Date(2000, 6, 15),
@@ -138,25 +149,20 @@ describe('The DateRangePicker component', function () {
       expect(this.renderedComponent.props.children[2].props.disabled).toBe(true);
     });
 
+    it('the right one when clicked moves the calendar one month in the future', function () {
+      this.useDocumentRenderer({
+        initialYear: 2000,
+        initialMonth: 6,
+      });
+      var rightArrow = ReactTestUtils.scryRenderedDOMComponentsWithClass(this.renderedComponent, 'DateRangePicker__PaginationArrowIcon')[1];
+      ReactTestUtils.Simulate.click(rightArrow);
+
+      expect(this.renderedComponent.state.month).toBe(7);
+    });
+
   });
 
   describe('contains CalendarMonth components', function () {
-
-    describe('which number is', function () {
-      it('by default only one', function () {
-        this.useShallowRenderer();
-        expect(this.renderedComponent.props.children[1].length).toBe(1);
-        expect(this.renderedComponent.props.children[1][0].type).toBe(CalendarMonth);
-      });
-
-      it('otherwise a number equal to props.numberOfCalendars', function () {
-        this.useShallowRenderer({
-          numberOfCalendars: 3,
-        });
-        expect(this.renderedComponent.props.children[1].length).toBe(3);
-        expect(this.renderedComponent.props.children[1][0].type).toBe(CalendarMonth);
-      });
-    });
 
     describe('for each component the initial month and year', function () {
 
@@ -264,66 +270,6 @@ describe('The DateRangePicker component', function () {
 
     });
 
-    describe('for each component the value', function () {
-
-      describe('when it is a moment', function () {
-
-        it('is set to null if it is not included in the corresponding month', function () {
-          var value = moment('2003 01 01', 'YYYY MM DD');
-          this.useShallowRenderer({
-            initialYear: 2000,
-            initialMonth: 6,
-            value: value,
-            selectionType: 'single',
-            initialFromValue: false,
-          });
-          expect(this.renderedComponent.props.children[1][0].props.value).toBe(null);
-        });
-
-        it('otherwise it uses props.value', function () {
-          var value = moment('2000 06 05', 'YYYY MM DD');
-          this.useShallowRenderer({
-            initialYear: 2000,
-            initialMonth: 5,
-            value: value,
-            selectionType: 'single',
-            initialFromValue: false,
-          });
-          expect(this.renderedComponent.props.children[1][0].props.value).toBe(value);
-        });
-
-      });
-
-      describe('when it is a moment range', function () {
-
-        it('is set to null if it is not overlapping the corresponding month', function () {
-          var value = moment.range(moment('2003 01 01', 'YYYY MM DD'), moment('2004 01 01', 'YYYY MM DD'));
-          this.useShallowRenderer({
-            initialYear: 2000,
-            initialMonth: 6,
-            value: value,
-            selectionType: 'range',
-            initialFromValue: false,
-          });
-          expect(this.renderedComponent.props.children[1][0].props.value).toBe(null);
-        });
-
-        it('otherwise it uses props.value', function () {
-          var value = moment.range(moment('2000 04 01', 'YYYY MM DD'), moment('2000 09 01', 'YYYY MM DD'));
-          this.useShallowRenderer({
-            initialYear: 2000,
-            initialMonth: 6,
-            value: value,
-            selectionType: 'range',
-            initialFromValue: false,
-          });
-          expect(this.renderedComponent.props.children[1][0].props.value).toBe(value);
-        });
-
-      });
-
-    });
-
     describe('for each component the highlighted date', function () {
 
       it('is set to null if it is not a moment', function () {
@@ -407,32 +353,6 @@ describe('The DateRangePicker component', function () {
         var calendarMonthComponent = ReactTestUtils.scryRenderedComponentsWithType(this.renderedComponent, CalendarMonth)[0];
         expect(calendarMonthComponent.props.highlightedRange).toBe(highlightedRange);
       });
-
-    });
-
-    describe('each component takes in a large number of other attributes', function () {
-
-      it('like props.bemBlock', function () {
-        this.useShallowRenderer({
-          bemBlock: 'test-bb',
-        });
-        expect(this.renderedComponent.props.children[1][0].props.bemBlock).toBe('test-bb');
-      });
-
-      it('like props.bemNamespace', function () {
-        this.useShallowRenderer({
-          bemNamespace: 'test-bn',
-        });
-        expect(this.renderedComponent.props.children[1][0].props.bemNamespace).toBe('test-bn');
-      });
-
-      it('like props.firstOfWeek', function () {
-        this.useShallowRenderer({
-          firstOfWeek: 0,
-        });
-        expect(this.renderedComponent.props.children[1][0].props.firstOfWeek).toBe(0);
-      });
-
 
     });
 
