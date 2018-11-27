@@ -542,7 +542,7 @@ const DateRangePicker = createClass({
     return (
       <div className={className.trim()}>
         <PaginationArrowComponent direction="previous" onTrigger={this.moveBack} disabled={!this.canMoveBack()} />
-        <TransitionGroup className="todo-list" enter={false}>
+        <TransitionGroup component={null} enter={false}>
         {calendars.toJS()}
         </TransitionGroup>
         <PaginationArrowComponent direction="next" onTrigger={this.moveForward} disabled={!this.canMoveForward()} />
