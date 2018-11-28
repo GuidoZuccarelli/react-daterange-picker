@@ -211,23 +211,6 @@ describe('The CalendarDate Component', function () {
 
   });
 
-  describe('creates the right style', function () {
-
-    it('when numStyles is 1', function () {
-      this.useShallowRenderer();
-      expect(this.renderedComponent.props.style.borderLeftColor).toEqual('#29');
-      expect(this.renderedComponent.props.style.borderRightColor).toEqual('#29');
-    });
-
-    it('when numStyles is 2', function () {
-      this.useShallowRenderer({count: 2});
-      expect(this.renderedComponent.props.style.borderLeftColor).toEqual('#29');
-      expect(this.renderedComponent.props.style.borderRightColor).toEqual('#3a');
-    });
-
-
-  });
-
   describe('handles touch events', function () {
 
     beforeEach(function () {
@@ -285,29 +268,6 @@ describe('The CalendarDate Component', function () {
       expect(this.selectDateSpy).toHaveBeenCalledWith(this.date);
     });
 
-  });
-
-  describe('handles half days', function () {
-
-    it('by creating calendar date period when there is more than one period', function () {
-      this.useShallowRenderer({count: 2});
-      expect(this.renderedComponent.props.children[0]).toEqual(
-        <div className='DateRangePicker__HalfDateStates'>
-          <CalendarDatePeriod period='am' color='#333'/>
-          <CalendarDatePeriod period='pm' color='#444'/>
-        </div>
-      );
-    });
-
-    it('by creating a simple div when there is only one period', function () {
-      this.useShallowRenderer();
-      const bg = {
-        backgroundColor: '#333',
-      };
-      expect(this.renderedComponent.props.children[1]).toEqual(
-        <div className='DateRangePicker__FullDateStates' style={bg} />
-      );
-    });
   });
 
   describe('has a selection widget', function () {
