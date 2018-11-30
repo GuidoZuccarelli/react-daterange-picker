@@ -127,9 +127,10 @@ const DateRangePicker = createClass({
 
   getInitialState() {
     let now = new Date();
-    let {initialYear, initialMonth, initialFromValue, value} = this.props;
+    let {initialYear, initialMonth, initialFromValue, value, singleDateRange} = this.props;
     let year = now.getFullYear();
     let month = now.getMonth();
+    let selectedStartDate = null;
 
     if (Number.isInteger(initialYear) && Number.isInteger(initialMonth)) {
       year = initialYear;
@@ -137,6 +138,9 @@ const DateRangePicker = createClass({
     }
 
     if (initialFromValue && (moment.isMoment(value) || isMomentRange(value))) {
+      if (moment.isMoment(value)&& !singleDateRange) {
+        selectedStartDate = value;
+      }
       const yearMonth = getYearMonthProps(this.props);
       month = yearMonth.month;
       year = yearMonth.year;
@@ -145,7 +149,7 @@ const DateRangePicker = createClass({
     return {
       year: year,
       month: month,
-      selectedStartDate: null,
+      selectedStartDate,
       highlightedDate: null,
       highlightRange: null,
       move: '',
