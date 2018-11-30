@@ -138,7 +138,7 @@ const DateRangePicker = createClass({
     }
 
     if (initialFromValue && (moment.isMoment(value) || isMomentRange(value))) {
-      if (moment.isMoment(value)&& !singleDateRange) {
+      if (!isMomentRange(value) && !singleDateRange) {
         selectedStartDate = value;
       }
       const yearMonth = getYearMonthProps(this.props);
