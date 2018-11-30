@@ -10,12 +10,12 @@ export function getYearMonth(date) {
 }
 
 export const getYearMonthProps = function (props) {
-  const { singleDateRange, value, initialYear, initialMonth } = props;
+  const { value, initialYear, initialMonth } = props;
   if (!(moment.isMoment(value) || isMomentRange(value))) {
     return { year: initialYear, month: initialMonth };
   }
 
-  if (singleDateRange) {
+  if (!isMomentRange(value)) {
     return getYearMonth(value);
   }
 
