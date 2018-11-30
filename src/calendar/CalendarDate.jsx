@@ -215,9 +215,9 @@ const CalendarDate = createClass({
           </div>}
         {numStates === 1 &&
           <div className={stateClass} />}
-        <span className={this.cx({element: "DateLabel"})}>{date.format('D')}</span>
         {selectionModifier ? <CalendarSelection modifier={selectionModifier} pending={pending} /> : null}
         {highlightModifier ? <CalendarHighlight modifier={highlightModifier} /> : null}
+        <span className={this.cx({element: "DateLabel"})}>{date.format('D')}</span>
       </td>
     );
   },
