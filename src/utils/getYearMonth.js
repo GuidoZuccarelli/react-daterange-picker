@@ -16,7 +16,7 @@ export const getYearMonthProps = function (props) {
   }
 
   if (!isMomentRange(value)) {
-    return getYearMonth(value);
+    return getYearMonth(moment(value).subtract(1, 'M'));
   }
 
   return getYearMonth(moment(value.start).subtract(1, 'M'));
