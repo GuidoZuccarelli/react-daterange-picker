@@ -402,7 +402,7 @@ const DateRangePicker = createClass({
   },
 
   canMoveBack() {
-    if (this.getMonthDate().isBefore(this.state.enabledRange.start)) {
+    if (this.getMonthDate().add(1, 'M').subtract(1, 'days').isBefore(this.state.enabledRange.start)) {
       return false;
     }
     return true;
