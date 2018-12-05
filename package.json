@@ -1,8 +1,8 @@
 {
-  "name": "react-daterange-picker",
+  "name": "@seekda/react-daterange-picker",
   "version": "2.0.1",
   "description": "A React based date range picker",
-  "author": "Jonathan Kim <jonathan.kim@onefinestay.com>",
+  "author": "",
   "scripts": {
     "develop": "gulp develop",
     "build-dist-js": "gulp build-dist-js",
@@ -20,25 +20,6 @@
   "engines": {
     "node": ">=4.0"
   },
-  "contributors": [
-    {
-      "name": "Andrew Ingram",
-      "email": "andrew.ingram@onefinestay.com"
-    },
-    {
-      "name": "Alan Foster",
-      "email": "alan@alanfoster.me"
-    },
-    {
-      "name": "Thaer Abbas",
-      "email": "thaer.abbas@tajawal.com"
-    },
-    {
-      "name": "Roman Loginov",
-      "email": "maullerz@gmail.com"
-    }
-  ],
-  "license": "Apache-2.0",
   "main": "dist/DateRangePicker.js",
   "keywords": [
     "react",
@@ -48,10 +29,6 @@
     "range",
     "react-component"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/onefinestay/react-daterange-picker"
-  },
   "peerDependencies": {
     "moment": "^2.18.1",
     "moment-range": "^3.0.3",
@@ -116,5 +93,8 @@
     "transform-loader": "^0.2.1",
     "underscore": "^1.8.3",
     "webpack": "^1.11.0"
+  },
+  "publishConfig": {
+    "registry": "https://nexus.seekda.com/repository/seekda-npm/"
   }
 }
